@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Cutter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Video Cutter</h1>
+    <p>Enter a YouTube video link and specify the start and end timestamps:</p>
+    <input type="text" id="videoLink" placeholder="YouTube Video URL" size="50">
+    <br>
+    <input type="text" id="startTime" placeholder="Start Time (e.g., 00:01:30)">
+    <input type="text" id="endTime" placeholder="End Time (e.g., 00:02:00)">
+    <br>
+    <button onclick="generateCommand()">Generate Command</button>
+    <p id="output"></p>
+
+    <script>
+        function generateCommand() {
+            const videoLink = document.getElementById('videoLink').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+
+            if (!videoLink || !startTime || !endTime) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            const command = `yt-dlp -f best --download-sections "*${startTime}-${endTime}" -o "output.mp4" "${videoLink}"`;
+            const output = document.getElementById('output');
+            output.innerHTML = `<p>Run this command in your terminal:</p><code>${command}</code>`;
+        }
+    </script>
+</body>
+</html>
